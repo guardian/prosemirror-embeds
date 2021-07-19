@@ -10,14 +10,16 @@ export interface CustomField<Data = unknown, Props = unknown>
   props: Props;
 }
 
-export const createCustomField = <Data, Props>(
+export function createCustomField<Data, Props = unknown>(
   defaultValue: Data,
   props: Props
-): CustomField<Data, Props> => ({
-  type: "custom" as const,
-  defaultValue,
-  props,
-});
+): CustomField<Data, Props> {
+  return {
+    type: "custom" as const,
+    defaultValue,
+    props,
+  };
+}
 
 type Subscriber<Fields extends unknown> = (fields: Fields) => void;
 

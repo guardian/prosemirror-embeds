@@ -6,7 +6,7 @@ import { Schema } from "prosemirror-model";
 import { schema as basicSchema } from "prosemirror-schema-basic";
 import { EditorState } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
-import { createImageElement } from "../src/elements/demo-image/DemoImageElement";
+import { createImageElement } from "../src/elements/image/ImageElement";
 import { buildElementPlugin } from "../src/plugin/element";
 import {
   createParsers,
@@ -16,16 +16,14 @@ import {
 import { testDecorationPlugin } from "../src/plugin/helpers/test";
 import { CollabServer, EditorConnection } from "./collab/CollabServer";
 import { createSelectionCollabPlugin } from "./collab/SelectionPlugin";
-import { onCropImage, onSelectImage } from "./helpers";
+import { onCropImage } from "./helpers";
 
 const {
   plugin: elementPlugin,
   insertElement,
   hasErrors,
   nodeSpec,
-} = buildElementPlugin([
-  createImageElement("imageElement", onSelectImage, onCropImage),
-]);
+} = buildElementPlugin([createImageElement("imageElement", onCropImage)]);
 
 const schema = new Schema({
   nodes: (basicSchema.spec.nodes as OrderedMap<NodeSpec>).append(nodeSpec),
@@ -110,7 +108,6 @@ const createEditor = (server: CollabServer) => {
     insertElement("imageElement", {
       altText: "",
       caption: "",
-      useSrc: { value: false },
     })(view.state, view.dispatch)
   );
   editorElement.appendChild(elementButton);
