@@ -7,6 +7,7 @@ import { schema as basicSchema } from "prosemirror-schema-basic";
 import { EditorState } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { createImageElement } from "../src/elements/demo-image/DemoImageElement";
+import { createPullquoteElement } from "../src/elements/pullquote/PullquoteSpec";
 import { buildElementPlugin } from "../src/plugin/element";
 import {
   createParsers,
@@ -25,6 +26,7 @@ const {
   nodeSpec,
 } = buildElementPlugin([
   createImageElement("imageElement", onSelectImage, onCropImage),
+  createPullquoteElement("pullquoteElement"),
 ]);
 
 const schema = new Schema({
