@@ -6,6 +6,7 @@ import { Schema } from "prosemirror-model";
 import { schema as basicSchema } from "prosemirror-schema-basic";
 import { EditorState } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
+import type { Asset } from "../src/elements/image/ImageElement";
 import { createImageElement } from "../src/elements/image/ImageElement";
 import { buildElementPlugin } from "../src/plugin/element";
 import {
@@ -104,12 +105,19 @@ const createEditor = (server: CollabServer) => {
   const elementButton = document.createElement("button");
   elementButton.innerHTML = "Element";
   elementButton.id = "element";
-  elementButton.addEventListener("click", () =>
-    insertElement("imageElement", {
-      altText: "",
-      caption: "",
-    })(view.state, view.dispatch)
-  );
+  elementButton.addEventListener("click", () => {
+    const setMedia = (
+      mediaId: string,
+      mediaApiUri: string,
+      assets: Asset[],
+      suppliersReference: string
+    ) => {
+      insertElement("imageElement", {
+        mainImage: { assets, suppliersReference, mediaId, mediaApiUri },
+      })(view.state, view.dispatch);
+    };
+    onCropImage(setMedia);
+  });
   editorElement.appendChild(elementButton);
 
   new EditorConnection(view, server, clientID, `User ${clientID}`, (state) => {
