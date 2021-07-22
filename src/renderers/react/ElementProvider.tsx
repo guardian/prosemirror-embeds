@@ -33,6 +33,7 @@ type IProps<FSpec extends FieldSpec<string>> = {
   validate: Validator<FSpec>;
   consumer: Consumer<ReactElement, FSpec>;
   fields: FieldNameToFieldViewSpec<FSpec>;
+  name: string;
 };
 
 type IState<FSpec extends FieldSpec<string>> = {
@@ -99,7 +100,7 @@ export class ElementProvider<FSpec extends FieldSpec<string>> extends Component<
       this.props.validate(this.state.fieldValues)
     );
     return (
-      <ElementWrapper name="Image" {...this.state.commands}>
+      <ElementWrapper name={this.props.name} {...this.state.commands}>
         {this.props.consumer(
           this.state.fieldValues,
           errors,

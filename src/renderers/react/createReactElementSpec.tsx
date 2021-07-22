@@ -36,6 +36,7 @@ export const createReactElementSpec = <
         commands={commands}
         consumer={consumer}
         fieldValues={fieldValues}
+        name={name}
       />,
       dom
     );
