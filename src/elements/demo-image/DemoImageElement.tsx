@@ -5,7 +5,6 @@ import type { Option } from "../../plugin/fieldViews/DropdownFieldView";
 import { createDropDownField } from "../../plugin/fieldViews/DropdownFieldView";
 import { createDefaultRichTextField } from "../../plugin/fieldViews/RichTextFieldView";
 import { createTextField } from "../../plugin/fieldViews/TextFieldView";
-import { UnnamedElementSpec } from "../../plugin/types/Element";
 import { createReactElementSpec } from "../../renderers/react/createReactElementSpec";
 import { ImageElementForm } from "./DemoImageElementForm";
 
@@ -67,7 +66,7 @@ export const createImageFields2 = () => {
 export const createImageElement = (
   onSelect: (setSrc: SetMedia) => void,
   onCrop: (mediaId: string, setSrc: SetMedia) => void
-): UnnamedElementSpec<ReturnType<typeof createImageFields>> =>
+) =>
   createReactElementSpec(
     createImageFields(onSelect, onCrop),
     (fields, errors, __, fieldViewSpecs) => {
@@ -95,9 +94,7 @@ export const createImageElement = (
     }
   );
 
-export const createImageElement2 = (): UnnamedElementSpec<
-  ReturnType<typeof createImageFields2>
-> =>
+export const createImageElement2 = () =>
   createReactElementSpec(
     createImageFields2(),
     () => {
